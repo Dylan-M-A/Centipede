@@ -36,6 +36,28 @@ namespace Centipede
 
                 actor.Update(deltaTime);
             }
+
+            //check for collision
+            for (int row = 0; row < _actors.Count; row++)
+            {
+                for (int column = row; column < _actors.Count; column++)
+                {
+                    //dont check the collision
+                    if (row == column)
+                        continue;
+
+                    //if both colliders are valid
+                    if (_actors[row].Collider != null && _actors[column].Collider != null)
+                    {
+                        //check collision
+                        if (_actors[row].Collider.CheckCollision(_actors[column]))
+                        {
+                            _actors[row].OnCollision(_actors[column]);
+                            _actors[column].OnCollision(_actors[row]);
+                        }
+                    }
+                }
+            }
         }
 
         public virtual void End()

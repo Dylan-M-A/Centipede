@@ -10,7 +10,8 @@ namespace Centipede
 {
     internal class TestActor : Actor
     {
-        public float Speed { get; set; } = 50;
+        public float Speed { get; set; } = 100;
+        private Color _color = Color.Blue;
 
         public override void Update(double deltaTime)
         {
@@ -27,7 +28,12 @@ namespace Centipede
             if (deltaMovement.Magnitude != 0)
             Transform.LocalPosition += (deltaMovement);
 
-            Raylib.DrawRectangleV(Transform.GlobalPosition, Transform.GlobalScale, Color.Blue);
+            Raylib.DrawCircleV(Transform.GlobalPosition, (Transform.GlobalScale.x / 2 * 100), _color);
+        }
+
+        public override void OnCollision(Actor other)
+        {
+            _color = Color.Red;
         }
     }
 }
