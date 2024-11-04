@@ -67,5 +67,10 @@ namespace Centipede
                 actor.End();
             }
         }
+
+        internal void RemoveActor(Actor actor)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

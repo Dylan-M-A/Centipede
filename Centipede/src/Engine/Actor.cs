@@ -59,6 +59,20 @@ namespace Centipede
             return actor;
         } 
 
+        public static void Destroy(Actor actor)
+        {
+            //remove all children
+            foreach (Transform2D child in actor.Transform.Children)
+            {
+                actor.Transform.RemoveChild(child);
+            }
+
+            if (actor.Transform.Parent != null)
+                actor.Transform.Parent.RemoveChild(actor.Transform);
+
+            Game.CurrentScene.RemoveActor(actor);
+        }
+
         public virtual void OnEnable() { }
         public virtual void OnDisable() { }
 

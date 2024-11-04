@@ -102,6 +102,10 @@ namespace Centipede
             get { return (float)Math.Atan2(_localRotation.m01, _localRotation.m00); }
         }
 
+        public Transform2D Parent { get => _parent; }
+
+        public Transform2D[] Children { get => _children; }
+
         public Transform2D(Actor owner)
         {
             _owner = owner;
