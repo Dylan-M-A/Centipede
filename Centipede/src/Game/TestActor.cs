@@ -28,7 +28,7 @@ namespace Centipede
             if (deltaMovement.Magnitude != 0)
             Transform.LocalPosition += (deltaMovement);
 
-            Raylib.DrawCircleV(Transform.GlobalPosition, (Transform.GlobalScale.x / 2 * 100), _color);
+            Raylib.DrawRectangleV(Transform.GlobalPosition, (Transform.GlobalScale / 2 * 100), _color);
         }
 
         public override void OnCollision(Actor other)

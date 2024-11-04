@@ -19,16 +19,16 @@ namespace Centipede
             Actor actor = new TestActor();
             actor.Transform.LocalPosition = new Vector2(200, 200);
             AddActor(actor);
-            actor.Collider = new CirlceCollider(actor, 50);
+            actor.Collider = new CirlceCollider(actor, 12);
 
             _theBoi = Actor.Instantaite(new Actor("The Boi"), null, new Vector2(100, 100), 0);
-            _theBoi.Collider = new CirlceCollider(_theBoi, 50);
+            _theBoi.Collider = new CirlceCollider(_theBoi, 37);
         }
 
         public override void Update(double deltaTime)
         {
             base.Update(deltaTime);
-            Raylib.DrawCircleV(_theBoi.Transform.GlobalPosition, 50, Color.Green);
+            Raylib.DrawRectangleV(_theBoi.Transform.GlobalPosition, _theBoi.Transform.GlobalPosition /2, Color.Green);
         }
     }
 }

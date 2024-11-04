@@ -12,6 +12,8 @@ namespace Centipede
         private bool _started = false;
         private bool _enabled = true;
 
+        private Component[] _components;
+
         public bool Started { get => _started; }
 
         public bool Enabled
@@ -42,6 +44,7 @@ namespace Centipede
         {
             Name = name;
             Transform = new Transform2D(this);
+            _components = new Component[0];
         }
 
         public static Actor Instantaite(Actor actor, Transform2D parent = null, Vector2 position = new Vector2(), float rotation = 0, string Name = "Actor")
@@ -85,13 +88,139 @@ namespace Centipede
             _started = true;
         }
 
-        public virtual void Update(double deltaTime) { }
+        public virtual void Update(double deltaTime) 
+        {
+            foreach (Component component in _components)
+            {
+                if (!component.Started)
+                    component.Start();
 
-        public virtual void End() { }
+                component.Update(deltaTime);
+            }
+        }
+
+        public virtual void End() 
+        {
+            foreach (Component component in _components)
+            {
+                component.End();
+            }
+        }
 
         public virtual void OnCollision(Actor other)
         {
 
+        }
+
+        //add components
+        public T AddComponent<T>(T component) where T : Component
+        {
+            //create temp array one bigger than _components
+            Component[] temp = new Component[_components.Length + 1];
+
+            //deep copy _components into temp
+            for (int i = 0; i < _components.Length; i++)
+            {
+                temp[i] = _components[i];
+            }
+
+            //set the last index in temp to the component we wish to add
+            temp[temp.Length - 1] = component;
+
+            //store temp in components
+            _components = temp;
+
+            return component;
+        }
+
+        public T AddComponent<T>() where T : Component
+        {
+            T component = (T)new Component(this);
+            return AddComponent(component);
+        }
+
+        //remove components
+        public bool RemoveComponent<T>(T component) where T : Component
+        {
+            //edge case for empty component array
+            if (_components.Length <= 0)
+                return false;
+
+            //edge case for only one component
+            if (_components.Length == 1 && _components[0] == component)
+            {
+                _components = new Component[0];
+                return true;
+            }
+
+            //create a temp array one smaller than _components
+            Component[] temp = new Component[_components.Length - 1];
+            bool componentRemoved = false;
+
+            //deep copy _componets into temp minus the one component
+            int j = 0;
+            for (int i = 0; j < _components.Length - 1; i++)
+            {
+                if (_components[i] != component)
+                {
+                    temp[j] = _components[i];
+                    j++;
+                }
+                else
+                {
+                    componentRemoved = true;
+                }
+            }
+            if (componentRemoved)
+            {
+                _components = temp;
+            }
+
+            return componentRemoved;
+        }
+
+        public bool RemoveComponent<T>() where T : Component
+        {
+            T component = GetComponent<T>();
+            if (component != null)
+                return RemoveComponent(component);
+            return false;
+        }
+        //get component
+        public T GetComponent<T>() where T : Component
+        {
+            foreach (Component component in _components)
+            {
+                if (component is T)
+                    return (T)component;
+            }
+            return null;
+        }
+        //get components
+        public T[] GetComponents<T>() where T : Component
+        {
+            //create an array of the same size as _components
+            T[] temp = new T[_components.Length];
+
+            //copy all elements that are of type T into temp
+            int count = 0;
+            for (int i = 0; i < _components.Length; i++)
+            {
+                if (_components[i] is T)
+                {
+                    temp[count] = (T)_components[i];
+                    count++;
+                }
+            }
+
+            //trim the array
+            T[] result = new T[count];
+            for (int i = 0; i < count; i++)
+            {
+                result[i] = temp[i];
+            }
+
+            return result;
         }
     }
 }
