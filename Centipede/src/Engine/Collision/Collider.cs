@@ -28,5 +28,7 @@ namespace Centipede
         }
 
         public virtual void Draw() { }
+
+
     }
 }

@@ -47,7 +47,7 @@ namespace Centipede
             _components = new Component[0];
         }
 
-        public static Actor Instantaite(Actor actor, Transform2D parent = null, Vector2 position = new Vector2(), float rotation = 0, string Name = "Actor")
+        public static Actor Instantiate(Actor actor, Transform2D parent = null, Vector2 position = new Vector2(), float rotation = 0, string Name = "Actor")
         {
             //set actor transform values
             actor.Transform.LocalPosition = position;
@@ -86,6 +86,7 @@ namespace Centipede
         public virtual void Start() 
         {
             _started = true;
+            _components = new Component[0];
         }
 
         public virtual void Update(double deltaTime) 

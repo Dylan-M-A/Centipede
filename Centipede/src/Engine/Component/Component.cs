@@ -32,7 +32,7 @@ namespace Centipede
 
         public bool Started { get => _started; }
 
-        public Component(Actor owner)
+        public Component(Actor owner = null)
         {
             _owner = owner;
             _enabled = true;
