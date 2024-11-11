@@ -42,7 +42,11 @@ namespace Centipede
         public virtual void OnEnable() { }
         public virtual void OnDisable() { }
         public virtual void Start() { _started = true; }
-        public virtual void Update(double deltaTime) { }
+        public virtual void Update(double deltaTime) 
+        {
+            if (Owner == null)
+                throw new NullReferenceException();
+        }
         public virtual void End() { }
     }
 }

@@ -16,7 +16,7 @@ namespace Centipede
                 _actors.Add(actor);
         }
 
-        public bool RemoveActtor(Actor actor)
+        public bool RemoveActor(Actor actor)
         {
             return _actors.Remove(actor);
         }
@@ -35,6 +35,8 @@ namespace Centipede
                     actor.Start();
 
                 actor.Update(deltaTime);
+                if (actor.Collider != null)
+                    actor.Collider.Draw();
             }
 
             //check for collision
@@ -66,11 +68,6 @@ namespace Centipede
             {
                 actor.End();
             }
-        }
-
-        internal void RemoveActor(Actor actor)
-        {
-            throw new NotImplementedException();
         }
     }
 }

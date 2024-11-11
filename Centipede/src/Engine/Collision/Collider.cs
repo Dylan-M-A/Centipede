@@ -8,6 +8,8 @@ namespace Centipede
 {
     internal class Collider
     {
+        Actor _theBall;
+
         public Actor Owner { get; protected set; }
 
         public Collider(Actor owner)
@@ -29,6 +31,12 @@ namespace Centipede
 
         public virtual void Draw() { }
 
+        public void Bounce()
+        {
+            if (_theBall.OnCollision == TestActor.ReferenceEquals)
+            {
 
+            }
+        }
     }
 }
