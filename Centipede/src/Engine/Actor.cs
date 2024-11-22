@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -14,6 +15,8 @@ namespace Centipede
 
         private Component[] _components;
         private Component[] _componentsToRemove;
+        private static Vector2 _size;
+        private float limitY;
 
         public bool Started { get => _started; }
 
@@ -39,7 +42,19 @@ namespace Centipede
 
         public string Name { get; set; }
 
-        public Transform2D Transform { get; protected set; }
+        public Transform2D Transform 
+        { get ;
+          set ; }
+
+        public Vector2 Direction { get; set; }
+        public float Speed { get; set; } = 1f;
+
+        public Vector2 Size { get; set; } = _size;
+        public Vector2 Position { get; private set; }
+
+        internal void BounceHorizontal() => Direction = this.Direction with { Y = -this.Direction.Y };
+
+        internal void BounceVertical() => Direction = this.Direction with { X = -this.Direction.X };
 
         public Actor(string name = "Actor")
         {
@@ -323,6 +338,14 @@ namespace Centipede
 
             //set components
             _components = result;
+        }
+        public void Move(float frameDeltaTimeSec)
+        {
+            var newPosition = this.Position + (Direction * Speed * frameDeltaTimeSec);
+
+            if (newPosition.Y < 0) Position = newPosition with { Y = 0 };
+            else if (newPosition.Y + Size.Y > limitY) Position = newPosition with { Y = limitY - Size.Y };
+            else Position = newPosition;
         }
     }
 }

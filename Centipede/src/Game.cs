@@ -14,6 +14,22 @@ namespace Centipede
         private static List<Scene> _scenes;
         private static Scene _currentScene;
 
+        const int WIN_WIDTH = 800;
+        const int WIN_HEIGHT = 480;
+
+        const int WIN_WIDTH_Mid = WIN_WIDTH / 2;
+
+        private static void DrawCenterLineDashed(int winCenter, int height)
+        {
+            const int LINE_LENGTH = 20;
+            const int LINE_SPACING = 10;
+
+            for (var counter = 0; counter < height; counter += LINE_LENGTH + LINE_SPACING)
+            {
+                Raylib.DrawLineEx(new Vector2(winCenter, counter), new Vector2(winCenter, counter + LINE_LENGTH), 3, Color.Black);
+            }
+        }
+
         public static Scene CurrentScene
         {
             get => _currentScene;
@@ -59,31 +75,25 @@ namespace Centipede
         }
         public void Run()
         {
-            Raylib.InitWindow(800, 480, "Hello World");
+            Raylib.InitWindow(WIN_WIDTH, WIN_HEIGHT, "Hello World");
 
             //timing
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            long currentTime = 0;
-            double deltaTime = 1;
-            long lastTime = 0;
 
             Scene testScene = new TestScene();
             AddScene(testScene);
 
             while (!Raylib.WindowShouldClose())
             {
-                currentTime = stopwatch.ElapsedMilliseconds;
+                var deltaTime = Raylib.GetFrameTime();
 
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
 
+                DrawCenterLineDashed(WIN_WIDTH_Mid, WIN_HEIGHT);
+
                 CurrentScene.Update(deltaTime);
 
                 Raylib.EndDrawing();
-
-                deltaTime = (currentTime - lastTime) / 1000.0;
-                lastTime = currentTime;
             }
 
             CurrentScene.End();

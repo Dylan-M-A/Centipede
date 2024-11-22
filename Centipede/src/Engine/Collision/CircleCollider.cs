@@ -17,6 +17,7 @@ namespace Centipede
             CollisionRadius = radius;
         }
 
+        //checks if there is a collision circle
         public override bool CheckCollisionCircle(CirlceCollider collider)
         {
             float sumRadii = collider.CollisionRadius + CollisionRadius;
@@ -28,7 +29,6 @@ namespace Centipede
         public override void Draw()
         {
             base.Draw();
-            Raylib.DrawCircleLinesV(Owner.Transform.GlobalPosition, CollisionRadius, Color.Green);
         }
     }
 }
