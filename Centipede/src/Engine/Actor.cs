@@ -50,7 +50,11 @@ namespace Centipede
         public float Speed { get; set; } = 1f;
 
         public Vector2 Size { get; set; } = _size;
-        public Vector2 Position { get; private set; }
+        public Vector2 Position 
+        {
+            get { return this.Transform.LocalPosition; }
+            set { this.Transform.LocalPosition = value;  } 
+        }
 
         internal void BounceHorizontal() => Direction = this.Direction with { Y = -this.Direction.Y };
 
@@ -346,6 +350,15 @@ namespace Centipede
             if (newPosition.Y < 0) Position = newPosition with { Y = 0 };
             else if (newPosition.Y + Size.Y > limitY) Position = newPosition with { Y = limitY - Size.Y };
             else Position = newPosition;
+        }
+
+        private int speedY = 10;
+        private int speedX = 10;
+
+        public void Move(Vector2 change )
+        {
+            Position.Y -= change.Y;
+            this.Transform.LocalPosition.X -= change.X;
         }
     }
 }

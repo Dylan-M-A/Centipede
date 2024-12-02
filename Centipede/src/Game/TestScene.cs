@@ -7,6 +7,12 @@ namespace Centipede
     {
         public Actor _theBall;
 
+        public int ballPositionX = 400;
+        public int ballPositionY = 240;
+
+        public int ballSpeedX = 5;
+        public int ballSpeedY = 5;
+
         public override void Start()
         {
             base.Start();
@@ -25,12 +31,15 @@ namespace Centipede
             //add the ball
             _theBall = Actor.Instantiate(new Actor("The Ball"), null, new Vector2(400, 240), 0);
             _theBall.Collider = new CirlceCollider(_theBall, 10);
+            
         }
-
         public override void Update(double deltaTime)
         {
             base.Update(deltaTime);
-            Raylib.DrawCircle(400, 240, 10, Color.Red);
+            Raylib.DrawCircle(ballPositionX, ballPositionY, 10, Color.Red);
+
+            ballPositionX += ballSpeedX;
+            ballPositionY += ballSpeedY;
 
             //ball movement
         }
