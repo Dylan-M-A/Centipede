@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Centipede
 {
-    internal class Actor
+    internal class Actor : Game
     {
         private bool _started = false;
         private bool _enabled = true;
@@ -55,10 +55,6 @@ namespace Centipede
             get { return this.Transform.LocalPosition; }
             set { this.Transform.LocalPosition = value;  } 
         }
-
-        internal void BounceHorizontal() => Direction = this.Direction with { Y = -this.Direction.Y };
-
-        internal void BounceVertical() => Direction = this.Direction with { X = -this.Direction.X };
 
         public Actor(string name = "Actor")
         {
@@ -343,22 +339,18 @@ namespace Centipede
             //set components
             _components = result;
         }
-        public void Move(float frameDeltaTimeSec)
-        {
-            var newPosition = this.Position + (Direction * Speed * frameDeltaTimeSec);
-
-            if (newPosition.Y < 0) Position = newPosition with { Y = 0 };
-            else if (newPosition.Y + Size.Y > limitY) Position = newPosition with { Y = limitY - Size.Y };
-            else Position = newPosition;
-        }
-
         private int speedY = 10;
         private int speedX = 10;
 
-        public void Move(Vector2 change )
+        public Vector2 GetPosition()
         {
-            Position.Y -= change.Y;
-            this.Transform.LocalPosition.X -= change.X;
+            return Position;
+        }
+
+        public void Move(Vector2 position)
+        {
+            position.Y -= speedY;
+            position.X -= speedX;
         }
     }
 }

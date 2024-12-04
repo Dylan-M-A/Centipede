@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Raylib_cs;
 using MathLibrary;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Centipede
 {
@@ -14,8 +15,12 @@ namespace Centipede
         private static List<Scene> _scenes;
         private static Scene _currentScene;
 
-        const int WIN_WIDTH = 800;
-        const int WIN_HEIGHT = 480;
+        public const int WIN_WIDTH = 800;
+        public const int WIN_HEIGHT = 480;
+
+        public Vector2 ballPosition = new Vector2(WIN_WIDTH / 2.0f, WIN_HEIGHT / 2.0f);
+        public Vector2 ballSpeed = new Vector2(5.0f, 4.0f);
+        public int ballRadius = 20;
 
         const int WIN_WIDTH_Mid = WIN_WIDTH / 2;
 
@@ -75,6 +80,8 @@ namespace Centipede
         }
         public void Run()
         {
+            Raylib.SetTargetFPS(60);
+
             Raylib.InitWindow(WIN_WIDTH, WIN_HEIGHT, "Hello World");
 
             //timing

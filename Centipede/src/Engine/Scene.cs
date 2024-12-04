@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Centipede
 {
-    internal class Scene
+    internal class Scene : Game
     {
         private List<Actor> _actors;
 
