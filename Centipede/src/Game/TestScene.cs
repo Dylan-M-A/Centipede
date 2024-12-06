@@ -25,7 +25,6 @@ namespace Centipede
             //add the ball
             _theBall = Actor.Instantiate(new Actor("The Ball"), null, ballPosition, 0);
             _theBall.Collider = new CirlceCollider(_theBall, 10);
-            
         }
         public override void Update(double deltaTime)
         {
@@ -37,9 +36,6 @@ namespace Centipede
 
             if ((ballPosition.x >= (WIN_WIDTH - ballRadius)) || (ballPosition.x <= ballRadius)) ballSpeed.x *= -1.0f;
             if ((ballPosition.y >= (WIN_HEIGHT - ballRadius)) || (ballPosition.y <= ballRadius)) ballSpeed.y *= -1.0f;
-
-
-            //ball movement
         }
     }
 }

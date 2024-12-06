@@ -34,8 +34,8 @@ namespace Centipede
                 if (deltaMovement.Magnitude != 0)
                     Transform.LocalPosition += (deltaMovement);
 
-                if ((ballPosition.x >= (player1.x - ballRadius)) || (ballPosition.x <= ballRadius)) ballSpeed.x *= -1.0f;
-                if ((ballPosition.y >= (player1.y - ballRadius)) || (ballPosition.y <= ballRadius)) ballSpeed.y *= -1.0f;
+                if ((ballPosition.x >= (_rectangleSize.x - ballRadius)) || (ballPosition.x <= ballRadius)) ballSpeed.x *= -1.0f;
+                if ((ballPosition.y >= (_rectangleSize.y - ballRadius)) || (ballPosition.y <= ballRadius)) ballSpeed.y *= -1.0f;
 
                 //helps offset the sqruare so the collision is inside the square
                 Vector2 offset = _rectangleSize / 2;
@@ -53,14 +53,13 @@ namespace Centipede
                 if (deltaMovement.Magnitude != 0)
                     Transform.LocalPosition += (deltaMovement);
 
-                if ((ballPosition.x >= (player2.x - ballRadius)) || (ballPosition.x <= ballRadius)) ballSpeed.x *= -1.0f;
-                if ((ballPosition.y >= (player2.y - ballRadius)) || (ballPosition.y <= ballRadius)) ballSpeed.y *= -1.0f;
+                if ((ballPosition.x >= (_rectangleSize.x - ballRadius)) || (ballPosition.x <= ballRadius)) ballSpeed.x *= -1.0f;
+                if ((ballPosition.y >= (_rectangleSize.y - ballRadius)) || (ballPosition.y <= ballRadius)) ballSpeed.y *= -1.0f;
 
                 Vector2 offset = _rectangleSize / 2;
 
                 Raylib.DrawRectangleV(Transform.GlobalPosition - offset, (_rectangleSize), _color);
             }
-
         }
     }
 }
