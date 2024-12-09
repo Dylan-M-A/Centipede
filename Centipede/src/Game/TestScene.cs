@@ -6,13 +6,14 @@ namespace Centipede
     internal class TestScene : Scene
     {
         public Actor _theBall;
+        Actor actor;
 
         public override void Start()
         {
             base.Start();
 
             //add our cool actor
-            Actor actor = new TestActor(KeyboardKey.W, KeyboardKey.S, Color.Blue, "player1");
+            actor = new TestActor(KeyboardKey.W, KeyboardKey.S, Color.Blue, "player1");
             actor.Transform.LocalPosition = new Vector2(50, 300);
             AddActor(actor);
             actor.Collider = new CirlceCollider(actor, 25);
@@ -36,6 +37,12 @@ namespace Centipede
 
             if ((ballPosition.x >= (WIN_WIDTH - ballRadius)) || (ballPosition.x <= ballRadius)) ballSpeed.x *= -1.0f;
             if ((ballPosition.y >= (WIN_HEIGHT - ballRadius)) || (ballPosition.y <= ballRadius)) ballSpeed.y *= -1.0f;
+
+            if (Raylib.IsKeyDown(KeyboardKey.E))
+            {
+                actor.Rotate(5 * (float)deltaTime);
+                
+            }
         }
     }
 }

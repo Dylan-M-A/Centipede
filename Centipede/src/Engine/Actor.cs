@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MathLibrary;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +16,8 @@ namespace Centipede
         private Component[] _components;
         private Component[] _componentsToRemove;
         private static Vector2 _size;
-        private float limitY;
+        private Matrix3 _rotation = Matrix3.Identity;
+        private Matrix3 _scale = Matrix3.Identity;
 
         public bool Started { get => _started; }
 
@@ -349,8 +350,13 @@ namespace Centipede
 
         public void Move(Vector2 position)
         {
-            position.Y -= speedY;
-            position.X -= speedX;
+            position.y -= speedY;
+            position.x -= speedX;
+        }
+
+        public virtual void Rotate(float radians)
+        {
+            _rotation *= Matrix3.CreateRotation(radians);
         }
     }
 }
