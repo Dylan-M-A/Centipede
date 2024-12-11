@@ -35,8 +35,9 @@ namespace Centipede
                 player1.y += Raylib.IsKeyDown(_down);
                 if (Raylib.IsKeyDown(KeyboardKey.E))
                 {
-                     Rotate(5 * (float)deltaTime);
+                    Transform.Rotate((float) -(Raylib.IsKeyDown(KeyboardKey.E) * (Math.PI / 180) * (_speed * deltaTime)));
                 }
+
                 Vector2 deltaMovement = player1.Normalized * _speed * (float)deltaTime;
 
                 if (deltaMovement.Magnitude != 0)
@@ -48,6 +49,19 @@ namespace Centipede
                 //draws the square
                 Raylib.DrawRectangleV(Transform.GlobalPosition - offset, (_rectangleSize), _color);
             }
+
+            Vector2 child = new Vector2();
+
+            Vector2 deltaMovement1 = child.Normalized * _speed * (float)deltaTime;
+
+            if (deltaMovement1.Magnitude != 0)
+                Transform.LocalPosition += (deltaMovement1);
+
+            //helps offset the sqruare so the collision is inside the square
+            Vector2 offset1 = _rectangleSize / 2;
+
+            //draws the square
+            Raylib.DrawRectangle(50, 250, 25, 25, _color);
 
             {
                 Vector2 player2 = new Vector2();

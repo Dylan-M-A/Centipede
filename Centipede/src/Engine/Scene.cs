@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MathLibrary;
 
 namespace Centipede
 {
@@ -61,7 +62,6 @@ namespace Centipede
                 }
             }
         }
-
         public virtual void End()
         {
             foreach (Actor actor in _actors)
