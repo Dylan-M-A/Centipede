@@ -127,6 +127,11 @@ namespace Centipede
             LocalRotation = Matrix3.CreateRotation(_localRotationAngle + radians);
         }
 
+        public void Scale(float scalar)
+        {
+            _localScale.m00 *= scalar;
+            _localScale.m11 *= scalar;
+        }
         public void AddChild(Transform2D child)
         {
             /*

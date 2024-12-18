@@ -358,5 +358,11 @@ namespace Centipede
         {
             _rotation *= Matrix3.CreateRotation(radians);
         }
+
+        public virtual void Scale(float scalar)
+        {
+            _scale.m00 *= scalar;
+            _scale.m11 *= scalar;
+        }
     }
 }

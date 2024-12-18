@@ -6,6 +6,8 @@ namespace Centipede
     internal class TestActor : Actor
     {
         public float _speed { get; set; } = 100;
+        public float _rotationSpeed { get; set; } = 3;
+        public float _sizeSpeed { get; set; } = 5;
         private Color _color;
         private Vector2 _rectangleSize = new Vector2();
         private KeyboardKey _up;
@@ -14,6 +16,11 @@ namespace Centipede
         public override void Rotate(float radians)
         {
             base.Rotate(radians);
+        }
+
+        public override void Scale(float scalar)
+        {
+            base.Scale(scalar);
         }
 
         //creates the test actor for the scene
@@ -33,9 +40,17 @@ namespace Centipede
                 Vector2 player1 = new Vector2();
                 player1.y -= Raylib.IsKeyDown(_up);
                 player1.y += Raylib.IsKeyDown(_down);
+
                 if (Raylib.IsKeyDown(KeyboardKey.E))
                 {
-                    Transform.Rotate((float) -(Raylib.IsKeyDown(KeyboardKey.E) * (Math.PI / 180) * (_speed * deltaTime)));
+                    Console.WriteLine(Transform.GlobalRotationAngle);
+                    Transform.Rotate((float) -(Raylib.IsKeyDown(KeyboardKey.E) * _rotationSpeed * deltaTime));
+                }                
+
+                if (Raylib.IsKeyDown(KeyboardKey.I))
+                {
+                    Console.WriteLine(Transform.GlobalRotationAngle);
+                    Transform.Scale((float) -(Raylib.IsKeyDown(KeyboardKey.I) * _sizeSpeed * deltaTime));
                 }
 
                 Vector2 deltaMovement = player1.Normalized * _speed * (float)deltaTime;
@@ -47,7 +62,8 @@ namespace Centipede
                 Vector2 offset = _rectangleSize / 2;
 
                 //draws the square
-                Raylib.DrawRectangleV(Transform.GlobalPosition - offset, (_rectangleSize), _color);
+                Rectangle rect = new Rectangle(Transform.GlobalPosition, _rectangleSize);
+                Raylib.DrawRectanglePro(rect, new Vector2(0, 0) + offset, Transform.GlobalRotationAngle * (180 / (float)Math.PI), _color);
             }
 
             Vector2 child = new Vector2();
@@ -67,6 +83,10 @@ namespace Centipede
                 Vector2 player2 = new Vector2();
                 player2.y -= Raylib.IsKeyDown(_up);
                 player2.y += Raylib.IsKeyDown(_down);
+                if (Raylib.IsKeyDown(KeyboardKey.K))
+                {
+                    Transform.Rotate((float)-(Raylib.IsKeyDown(KeyboardKey.K) * _rotationSpeed * deltaTime));
+                }
                 Vector2 deltaMovement = player2.Normalized * _speed * (float)deltaTime;
 
                 if (deltaMovement.Magnitude != 0)
@@ -74,7 +94,8 @@ namespace Centipede
 
                 Vector2 offset = _rectangleSize / 2;
 
-                Raylib.DrawRectangleV(Transform.GlobalPosition - offset, (_rectangleSize), _color);
+                Rectangle rect = new Rectangle(Transform.GlobalPosition, _rectangleSize);
+                Raylib.DrawRectanglePro(rect, new Vector2(0, 0) + offset, Transform.GlobalRotationAngle * (180 / (float)Math.PI), _color);
             }
         }
         public override void OnCollision(Actor other)
