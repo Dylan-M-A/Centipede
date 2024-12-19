@@ -6,7 +6,6 @@ namespace Centipede
     internal class TestScene : Scene
     {
         public Actor _theBall;
-        
 
         public override void Start()
         {
@@ -24,7 +23,6 @@ namespace Centipede
             actor2.Collider = new CirlceCollider(actor2, 25);
 
             Actor actor3 = Actor.Instantiate(new Actor("child"), actor.Transform, new Vector2(50, 250), 0);
-            actor3.Transform.LocalPosition = new Vector2(50, 250);
             AddActor(actor3);
             actor3.Collider = new CirlceCollider(actor3, 25);
 

@@ -49,8 +49,8 @@ namespace Centipede
 
                 if (Raylib.IsKeyDown(KeyboardKey.I))
                 {
-                    Console.WriteLine(Transform.GlobalRotationAngle);
-                    Transform.Scale((float) -(Raylib.IsKeyDown(KeyboardKey.I) * _sizeSpeed * deltaTime));
+                    Console.WriteLine(Transform.GlobalScale);
+                    Transform.Scale((float) +(Raylib.IsKeyDown(KeyboardKey.I) * _sizeSpeed * deltaTime));
                 }
 
                 Vector2 deltaMovement = player1.Normalized * _speed * (float)deltaTime;
@@ -85,7 +85,7 @@ namespace Centipede
                 player2.y += Raylib.IsKeyDown(_down);
                 if (Raylib.IsKeyDown(KeyboardKey.K))
                 {
-                    Transform.Rotate((float)-(Raylib.IsKeyDown(KeyboardKey.K) * _rotationSpeed * deltaTime));
+                    Transform.Rotate((float) -(Raylib.IsKeyDown(KeyboardKey.K) * _rotationSpeed * deltaTime));
                 }
                 Vector2 deltaMovement = player2.Normalized * _speed * (float)deltaTime;
 
