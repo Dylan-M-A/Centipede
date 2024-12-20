@@ -10,6 +10,13 @@ namespace Centipede
     internal class Scene : Game
     {
         private List<Actor> _actors;
+        public List<Actor> Actors
+        {
+            get
+            {
+                return _actors;
+            }
+        }
 
         public void AddActor(Actor actor)
         {

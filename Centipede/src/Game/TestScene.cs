@@ -12,19 +12,22 @@ namespace Centipede
             base.Start();
 
             //add our cool actor
-            Actor actor = new TestActor(KeyboardKey.W, KeyboardKey.S, Color.Blue, "player1");
+            Actor actor = new TestActor(KeyboardKey.W, KeyboardKey.S, KeyboardKey.E, KeyboardKey.Q, Color.Blue, "player1");
             actor.Transform.LocalPosition = new Vector2(50, 300);
             AddActor(actor);
             actor.Collider = new CirlceCollider(actor, 25);
 
-            Actor actor2 = new TestActor(KeyboardKey.Up, KeyboardKey.Down, Color.Green, "player2");
+            Actor actor2 = new TestActor(KeyboardKey.Up, KeyboardKey.Down, KeyboardKey.L, KeyboardKey.K, Color.Green, "player2");
             actor2.Transform.LocalPosition = new Vector2(750, 300);
             AddActor(actor2);
             actor2.Collider = new CirlceCollider(actor2, 25);
 
-            Actor actor3 = Actor.Instantiate(new Actor("child"), actor.Transform, new Vector2(50, 250), 0);
-            AddActor(actor3);
+            //child
+            Actor actor3 = Actor.Instantiate(new Actor("child"), actor.Transform, new Vector2(0, 0), 0);
+            actor3.Transform.Translate(new Vector2(0, 100));
+            actor3.Transform.LocalScale = new Vector2(0.5f, 0.5f);
             actor3.Collider = new CirlceCollider(actor3, 25);
+            actor3.AddComponent(new RectangleComponent(actor3, Color.Green));
 
             //add the ball
             _theBall = Actor.Instantiate(new Actor("The Ball"), null, ballPosition, 0);
@@ -34,6 +37,9 @@ namespace Centipede
         {
             base.Update(deltaTime);
             Raylib.DrawCircleV(ballPosition, ballRadius, Color.Red);
+
+            Console.WriteLine("Player: " + Actors[0].Transform.GlobalPosition);
+            Console.WriteLine("Child: " + Actors[2].Transform.GlobalPosition);
 
             ballPosition.x += ballSpeed.x;
             ballPosition.y += ballSpeed.y;

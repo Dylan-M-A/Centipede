@@ -16,8 +16,6 @@ namespace Centipede
         private Component[] _components;
         private Component[] _componentsToRemove;
         private static Vector2 _size;
-        private Matrix3 _rotation = Matrix3.Identity;
-        private Matrix3 _scale = Matrix3.Identity;
 
         public bool Started { get => _started; }
 
@@ -100,7 +98,6 @@ namespace Centipede
         public virtual void Start() 
         {
             _started = true;
-            _components = new Component[0];
         }
 
         public virtual void Update(double deltaTime) 
@@ -352,17 +349,6 @@ namespace Centipede
         {
             position.y -= speedY;
             position.x -= speedX;
-        }
-
-        public virtual void Rotate(float radians)
-        {
-            _rotation *= Matrix3.CreateRotation(radians);
-        }
-
-        public virtual void Scale(float scalar)
-        {
-            _scale.m00 *= scalar;
-            _scale.m11 *= scalar;
         }
     }
 }

@@ -129,8 +129,11 @@ namespace Centipede
 
         public void Scale(float scalar)
         {
-            _localScale.m00 *= scalar;
-            _localScale.m11 *= scalar;
+            Vector2 scale = LocalScale;
+
+            scale *= scalar;
+
+            LocalScale = scale;
         }
         public void AddChild(Transform2D child)
         {
