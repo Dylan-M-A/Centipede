@@ -5,7 +5,7 @@ namespace Centipede
 {
     internal class TestScene : Scene
     {
-        public Actor _theBall;
+        public Actor _theBall = new Actor("The Ball");
 
         public override void Start()
         {
@@ -32,20 +32,24 @@ namespace Centipede
             //add the ball
             _theBall = Actor.Instantiate(new Actor("The Ball"), null, ballPosition, 0);
             _theBall.Collider = new CirlceCollider(_theBall, 10);
+            _theBall.Position = ballPosition;
+            _theBall.Speed = ballSpeed.x;
+            _theBall.Speed = ballSpeed.y;
+            _theBall.Radius = ballRadius;
         }
         public override void Update(double deltaTime)
         {
             base.Update(deltaTime);
             Raylib.DrawCircleV(ballPosition, ballRadius, Color.Red);
 
-            Console.WriteLine("Player: " + Actors[0].Transform.GlobalPosition);
-            Console.WriteLine("Child: " + Actors[2].Transform.GlobalPosition);
-
             ballPosition.x += ballSpeed.x;
             ballPosition.y += ballSpeed.y;
 
             if ((ballPosition.x >= (WIN_WIDTH - ballRadius)) || (ballPosition.x <= ballRadius)) ballSpeed.x *= -1.0f;
             if ((ballPosition.y >= (WIN_HEIGHT - ballRadius)) || (ballPosition.y <= ballRadius)) ballSpeed.y *= -1.0f;
+            {
+                Console.WriteLine("S ");
+            }
         }
     }
 }

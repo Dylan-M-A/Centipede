@@ -54,6 +54,7 @@ namespace Centipede
             get { return this.Transform.LocalPosition; }
             set { this.Transform.LocalPosition = value;  } 
         }
+        public float Radius { get; set; } = 0;
 
         public Actor(string name = "Actor")
         {
@@ -339,16 +340,5 @@ namespace Centipede
         }
         private int speedY = 10;
         private int speedX = 10;
-
-        public Vector2 GetPosition()
-        {
-            return Position;
-        }
-
-        public void Move(Vector2 position)
-        {
-            position.y -= speedY;
-            position.x -= speedX;
-        }
     }
 }
