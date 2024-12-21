@@ -12,12 +12,13 @@ namespace Centipede
             base.Start();
 
             //add our cool actor
-            Actor actor = new TestActor(KeyboardKey.W, KeyboardKey.S, KeyboardKey.E, KeyboardKey.Q, Color.Blue, "player1");
+            Actor actor = new TestActor(KeyboardKey.W, KeyboardKey.S, KeyboardKey.E, KeyboardKey.Q, KeyboardKey.I, Color.Blue, "player1");
             actor.Transform.LocalPosition = new Vector2(50, 300);
+            actor.Transform.LocalScale = new Vector2(0.5f, 0.5f);
             AddActor(actor);
             actor.Collider = new CirlceCollider(actor, 25);
 
-            Actor actor2 = new TestActor(KeyboardKey.Up, KeyboardKey.Down, KeyboardKey.L, KeyboardKey.K, Color.Green, "player2");
+            Actor actor2 = new TestActor(KeyboardKey.Up, KeyboardKey.Down, KeyboardKey.L, KeyboardKey.K, KeyboardKey.O, Color.Green, "player2");
             actor2.Transform.LocalPosition = new Vector2(750, 300);
             AddActor(actor2);
             actor2.Collider = new CirlceCollider(actor2, 25);
@@ -47,9 +48,6 @@ namespace Centipede
 
             if ((ballPosition.x >= (WIN_WIDTH - ballRadius)) || (ballPosition.x <= ballRadius)) ballSpeed.x *= -1.0f;
             if ((ballPosition.y >= (WIN_HEIGHT - ballRadius)) || (ballPosition.y <= ballRadius)) ballSpeed.y *= -1.0f;
-            {
-                Console.WriteLine("S ");
-            }
         }
     }
 }
